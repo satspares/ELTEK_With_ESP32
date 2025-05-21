@@ -9,6 +9,11 @@ The display is from the DWIN Store on Aliexpress about 18.00usd plus carriage.
 As the Eltex was designed to charge batteries the current limit when active reduces the output voltage to approx. 47volts.
 When this happens we display a warning and sound a beep also put a ESP32 output pin high. (pull a relay etc. with a driver transistor)
 
+The folder to upload to the display via. sdcard is DWIN_SET
+Its also worth looking at the DWIN docs. in my github https://github.com/satspares/DWIN_DGUS_HMI
+
+
+
 
 
  
