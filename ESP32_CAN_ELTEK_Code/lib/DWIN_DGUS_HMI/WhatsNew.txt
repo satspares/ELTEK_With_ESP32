@@ -1,0 +1,74 @@
+23-February-2025
+Add include for Thinary Nano 4808 megacorex code
+
+07-April-2024
+Add Nano Every to library
+
+15-October 2023 add returnWord function.
+With hmi.returnWord(true) returns the last word in the rx callback event in the lastByte variable which is
+actually an int. Leaving the function out or hmi.returnWord(false) returns an 8bit value which is the previous result
+this avoids a breaking change.
+
+
+14-October 2023 fix missing size byte in callback response
+
+
+Added setScreenRotate(byte angle) to DWIN_Arduino_Helpers.hpp
+
+// Send int array to the display we dont need the 5A A5 or size - even words only
+  // eg. Using Basic Graphic Control vp 0x5000
+  // Display rectangle 
+    uint16_t intArrayRect[] = {0x5000,0x0003,0x0001,200,100,650,400,0xFFF0,0xFF00};
+  //  Fill it with Yellow
+    uint16_t intArrayFill[] = {0x5000,0x0004,0x0001,200,100,650,400,0xFFF0,0xFF00};
+  //  display it
+    hmi.sendIntArray(0x82,intArrayRect,sizeof(intArrayRect));
+    hmi.sendIntArray(0x82,intArrayFill,sizeof(intArrayFill));
+
+Made alias for void setVP(long address, byte data); to void setVPByte(long address, byte data);
+Makes more sense.
+
+Added STM32 Arduino to library.
+
+// hmi.readVPByte can now read hi or low byte
+  hmi.setVPWord(0x2000,0xAA55);
+  Serial.println(hmi.readVPByte(0x2000),HEX);   //optional bool parameter or hmi.readVPByte(0x2000,0)
+  Serial.println(hmi.readVPByte(0x2000,1),HEX); //read hi byte
+  uint16_t vpContent = (hmi.readVPByte(0x2000,1) << 8) + hmi.readVPByte(0x2000) ;
+  Serial.println(vpContent,HEX);
+  Serial.print("Display OS Software Version ");
+  Serial.println(hmi.getHWVersion());
+  Serial.print("Display GUI Software Version ");
+  Serial.println(hmi.getGUISoftVersion());
+
+
+// Send array to dwin we dont need the 5A A5 or the size byte
+// hopefully we can work this out.
+//byte hmiArray[] = {0x83,0x10,0x00,0x1};       // Read 0x1000 one word returns in the rx event
+//byte hmiArray[] = {0x82,0x88,0x00,0x55,0xAA};  // Write 0x1000
+hmi.sendArray(hmiArray,sizeof(hmiArray));
+
+Added some helpers in DWIN_Arduino_Helpers.hpp
+// Read word from VP address
+uint16_t readVP(uint16_t vpAddress)
+
+// Read long value from VP address
+unsigned long readLongValue(uint16_t vpAddress)
+
+// Read float value from VP address
+float readFloatValue(uint16_t vpAddress)
+
+// Write long value to VP address
+void writeLongValue(uint16_t vpAddress,unsigned long lValue)
+
+/**
+ * Used in the callback event onHMIEvent
+ * Get the last 2 bytes returned from hmi for our use if bytesBack = 0
+ * If bytesBack = 2 get the 2 previous bytes etc.
+ */
+unsigned long getWordReply(String response, byte bytesBack)
+
+// read text from VP normally ascii text control
+// noWords should be your char length / 2
+// eg. read 12 chars Serial.println(readVPText(0x2300,6)) ;
+String readVPText(uint16_t vpAddress,byte noWords)

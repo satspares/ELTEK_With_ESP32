@@ -1,0 +1,37 @@
+⁵#######################################
+# Syntax DWIN DGUS Display
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+DWIN                        KEYWORD1
+dwinHMI                     KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+init                        KEYWORD2
+getVersion                  KEYWORD2
+setBrightness               KEYWORD2
+getPage                     KEYWORD2
+setPage                     KEYWORD2
+setValue                    KEYWORD2
+getValue                    KEYWORD2
+setQRCode                   KEYWORD2
+listen                      KEYWORD2
+playSound                   KEYWORD2
+setRTC                      KEYWORD2
+setRTCSOFT                  KEYWORD2
+setVPWord                   KEYWORD2
+readVPWord                  KEYWORD2
+setTextColor                KEYWORD2
+setFloatValue               KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+

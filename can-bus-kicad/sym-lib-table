@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "DR331")(type "KiCad")(uri "${KIPRJMOD}/DR331.kicad_sym")(options "")(descr ""))
+  (lib (name "esp32-super-mini")(type "KiCad")(uri "${KIPRJMOD}/esp32-super-mini.kicad_sym")(options "")(descr ""))
+)

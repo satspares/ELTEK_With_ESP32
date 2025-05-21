@@ -1,0 +1,309 @@
+(footprint "DIODE_DO-214AC-L"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(tags "SMBJ30CA-E3/52 ")
+	(property "Reference" "D1"
+		(at 0 0 180)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "37bbd8bc-900e-47bf-b2b1-b471f2802313")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "SMBJ30CA"
+		(at -0.04 -2.3 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "97195812-3ae5-4896-aef2-7151d6b456da")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" "footprints:DIODE_DO-214AC-L"
+		(at 0 0 180)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "97eff1f3-4251-467e-942e-0abe338d5a7e")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "https://www.vishay.com/docs/88392/smbj.pdf"
+		(at 0 0 180)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "38adc929-e00c-4140-94c8-0e860b8400f8")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "Transient Voltage Suppressor"
+		(at 0 0 180)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "9c14003d-dc1a-457d-aa1d-b7f357adbbc5")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -2.7686 -1.524)
+		(end -2.7686 -1.128939)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "a2895934-ded3-4c7f-a1f8-a3bb113ae674")
+	)
+	(fp_line
+		(start -2.7686 1.128939)
+		(end -2.7686 1.524)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "4ca27708-fc68-40ee-9602-f9057a3214fa")
+	)
+	(fp_line
+		(start -2.7686 1.524)
+		(end 2.7686 1.524)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "43bf304e-fbf1-40a9-946c-e8d833fe8919")
+	)
+	(fp_line
+		(start 2.7686 -1.524)
+		(end -2.7686 -1.524)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "a26ea9e7-709f-4850-8ce7-8c7479c617eb")
+	)
+	(fp_line
+		(start 2.7686 -1.128939)
+		(end 2.7686 -1.524)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "5f96617e-ea42-4447-935b-b9b8316455f9")
+	)
+	(fp_line
+		(start 2.7686 1.524)
+		(end 2.7686 1.128939)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "072cfc4f-f88a-41ed-86cd-13daf9ae05ee")
+	)
+	(fp_line
+		(start -2.6416 -1.397)
+		(end -2.6416 1.397)
+		(stroke
+			(width 0.0254)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "8785db7e-cfa3-460e-86f7-8a9f591a7141")
+	)
+	(fp_line
+		(start -2.6416 1.397)
+		(end 2.6416 1.397)
+		(stroke
+			(width 0.0254)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "f2998626-e698-49a1-abc4-370cf4eb4fb0")
+	)
+	(fp_line
+		(start 2.6416 -1.397)
+		(end -2.6416 -1.397)
+		(stroke
+			(width 0.0254)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "a679eb1b-ea5a-4613-986c-c11a1824fa0b")
+	)
+	(fp_line
+		(start 2.6416 1.397)
+		(end 2.6416 -1.397)
+		(stroke
+			(width 0.0254)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "3545e199-0513-4003-aaa8-483e8dcc51ab")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "05800feb-487a-473e-a7b6-97c31959a03f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at -1.8161 0 90)
+		(size 1.6002 1.8034)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(teardrops
+			(best_length_ratio 0.5)
+			(max_length 1)
+			(best_width_ratio 1)
+			(max_width 2)
+			(curve_points 0)
+			(filter_ratio 0.9)
+			(enabled yes)
+			(allow_two_segments yes)
+			(prefer_zone_connections yes)
+		)
+		(uuid "c9b00460-7536-444c-8f45-b6301d66bb8f")
+	)
+	(pad "2" smd rect
+		(at 1.8161 0 90)
+		(size 1.6002 1.8034)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(teardrops
+			(best_length_ratio 0.5)
+			(max_length 1)
+			(best_width_ratio 1)
+			(max_width 2)
+			(curve_points 0)
+			(filter_ratio 0.9)
+			(enabled yes)
+			(allow_two_segments yes)
+			(prefer_zone_connections yes)
+		)
+		(uuid "0cc331f3-be6b-41bd-ab99-3f6a89115f53")
+	)
+	(zone
+		(net 0)
+		(net_name "")
+		(layer "F.Cu")
+		(uuid "b17b45b2-176d-4214-9558-79c8c53b7ef7")
+		(hatch full 0.508)
+		(connect_pads
+			(clearance 0)
+		)
+		(min_thickness 0.254)
+		(filled_areas_thickness no)
+		(keepout
+			(tracks not_allowed)
+			(vias not_allowed)
+			(pads allowed)
+			(copperpour not_allowed)
+			(footprints allowed)
+		)
+		(fill
+			(thermal_gap 0.508)
+			(thermal_bridge_width 0.508)
+		)
+		(polygon
+			(pts
+				(xy -2.5908 -1.3462) (xy 2.5908 -1.3462) (xy 2.5908 -0.8763) (xy -2.5908 -0.8763)
+			)
+		)
+	)
+	(zone
+		(net 0)
+		(net_name "")
+		(layer "F.Cu")
+		(uuid "b7677fcc-ea6c-41ca-a00c-8a3867bc10a1")
+		(hatch full 0.508)
+		(connect_pads
+			(clearance 0)
+		)
+		(min_thickness 0.254)
+		(filled_areas_thickness no)
+		(keepout
+			(tracks not_allowed)
+			(vias not_allowed)
+			(pads allowed)
+			(copperpour not_allowed)
+			(footprints allowed)
+		)
+		(fill
+			(thermal_gap 0.508)
+			(thermal_bridge_width 0.508)
+		)
+		(polygon
+			(pts
+				(xy -2.5908 0.8763) (xy 2.5908 0.8763) (xy 2.5908 1.3462) (xy -2.5908 1.3462)
+			)
+		)
+	)
+	(zone
+		(net 0)
+		(net_name "")
+		(layer "F.Cu")
+		(uuid "b26a4fec-8774-4b65-8d85-4ab98076b40c")
+		(hatch full 0.508)
+		(connect_pads
+			(clearance 0)
+		)
+		(min_thickness 0.254)
+		(filled_areas_thickness no)
+		(keepout
+			(tracks not_allowed)
+			(vias not_allowed)
+			(pads allowed)
+			(copperpour not_allowed)
+			(footprints allowed)
+		)
+		(fill
+			(thermal_gap 0.508)
+			(thermal_bridge_width 0.508)
+		)
+		(polygon
+			(pts
+				(xy -0.8636 -0.8763) (xy 0.8636 -0.8763) (xy 0.8636 0.8763) (xy -0.8636 0.8763)
+			)
+		)
+	)
+	(model "/home/paul/Documents/can-bus-kicad/SMBJ30CA/SMBJ30CA-Q.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 0.2001 0.8)
+		)
+		(rotate
+			(xyz -90 0 0)
+		)
+	)
+)

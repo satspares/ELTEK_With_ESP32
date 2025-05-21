@@ -1,0 +1,25 @@
+Info: Updated footprint C3 (Capacitor_Tantalum_SMD:CP_EIA-7343-20_Kemet-V_HandSolder): : (no changes)
+Updated footprint JP2 (Jumper:SolderJumper-2_P1.3mm_Open_TrianglePad1.0x1.5mm): : OK
+Updated footprint R2 (Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder): : OK
+Updated footprint U3 (Package_SO:SOIC-8_3.9x4.9mm_P1.27mm): : OK
+Updated footprint J7 (Connector_JST:JST_EH_B2B-EH-A_1x02_P2.50mm_Vertical): : OK
+Updated footprint JP1 (Jumper:SolderJumper-2_P1.3mm_Open_TrianglePad1.0x1.5mm): : OK
+Updated footprint C2 (Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder): : OK
+Info: Updated footprint U1 (Package_DIP:MODULE_ESP32-C3_SUPERMINI): : (no changes)
+Updated footprint R4 (Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder): : OK
+Info: Updated footprint D2 (smb-diode:DIODE_DO-214AC-L): : (no changes)
+Updated footprint J5 (Connector_JST:JST_EH_B2B-EH-A_1x02_P2.50mm_Vertical): : OK
+Info: Updated footprint H2 (MountingHole:MountingHole_3.5mm_Pad_Via): : (no changes)
+Updated footprint J1 (Connector_JST:JST_EH_B2B-EH-A_1x02_P2.50mm_Vertical): : OK
+Updated footprint IND1 (dr331:DR331): : OK
+Updated footprint R5 (Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder): : OK
+Updated footprint J2 (TerminalBlock:TerminalBlock_Xinya_XY308-2.54-3P_1x03_P2.54mm_Horizontal): : OK
+Updated footprint R3 (Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder): : OK
+Updated footprint JP3 (Jumper:SolderJumper-2_P1.3mm_Open_TrianglePad1.0x1.5mm): : OK
+Updated footprint R1 (Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder): : OK
+Info: Updated footprint D1 (smb-diode:DIODE_DO-214AC-L): : (no changes)
+Info: Updated footprint H1 (MountingHole:MountingHole_3.5mm_Pad_Via): : (no changes)
+Updated footprint J3 (Connector_JST:JST_EH_B2B-EH-A_1x02_P2.50mm_Vertical): : OK
+Updated footprint J4 (Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical): : OK
+Updated footprint R6 (Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder): : OK
+Updated footprint J6 (Connector_JST:JST_EH_B4B-EH-A_1x04_P2.50mm_Vertical): : OK
