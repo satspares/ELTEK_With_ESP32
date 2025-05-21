@@ -6,4 +6,5 @@ As the Eltex was designed to charge batteries the current limit when active redu
 When this happens we display a warning and sound a beep also put a ESP32 output pin high. (pull a relay etc. with a driver transistor)
 
 
+
  
