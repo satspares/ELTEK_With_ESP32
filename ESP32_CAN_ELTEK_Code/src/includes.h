@@ -8,7 +8,6 @@
 // please note it is a HEX number as per. example
 // if not we will work it out
 const bool USESERIALNO = false;
-//const uint64_t PSUSERIAL = 0x062871029184;
 const uint64_t PSUSERIAL = 0x183471016561;
 const uint8_t PSUID = 2;                  // Eltek ID no. we set 
 const uint8_t LOGINTIME = 10;             // < (64*0.2)  time between logins set 5-10 seconds
