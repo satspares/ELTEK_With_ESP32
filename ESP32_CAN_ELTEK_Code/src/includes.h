@@ -10,6 +10,7 @@
 const bool USESERIALNO = false;
 const uint64_t PSUSERIAL = 0x183471016561;
 
+bool use_session_info = true;             // start last saved session if true else start with default voltage if false
 const uint8_t PSUID = 2;                  // Eltek ID no. we set 
 const uint8_t LOGINTIME = 10;             // < (64*0.2)  time between logins set 5-10 seconds
 const uint8_t REBOOTMINS = 5;             // reboot time if no can messages 
@@ -19,7 +20,7 @@ const uint16_t DISPLAY_REFRESH_TIME_MS = 500;
 const uint8_t DISPLAY_BRIGHTNESS = 25;   // range 1-100
 const bool LONG_WALKIN = false;          // false for 5 seconds true for 60 seconds
 const bool OLD_ELTEK = false;
-// ELTEK before HE version?
+// ELTEK before HE version? I have a v1.5 most functions work
 // Not possible to set default voltage?
 // we use a session for this does anyone know different?
 // we set the session active on start for these.
@@ -100,7 +101,6 @@ bool defaultVoltSent = false;
 bool serialNumberRXed = false;
 bool counter_login_secsbool  = false;
 bool counter_display_msbool = false; 
-bool use_session_info = false;
 bool in_menu = false; // we are in a menu item
 
 
@@ -208,7 +208,9 @@ void eeprom_write_session_values();
 void eeprom_read_session_values();
 void setupDisplay();
 void update_display();
+#ifdef SCREENROTATE
 void setScreenRotate(byte angle);
+#endif
 void clearFrameArrayDigits();
 void onHMIEvent(String address, int lastByte, String message, String response);
 void checkCurrentWarning();

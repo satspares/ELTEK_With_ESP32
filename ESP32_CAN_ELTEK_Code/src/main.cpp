@@ -2,6 +2,7 @@
 #define myDebug
 //#define frameINFO
 #define displayDebug
+//#define SCREENROTATE
 #include <Arduino.h>
 #include <ESP32-TWAI-CAN.hpp>
 #include <myTicker.h> // clone Ticker.h as it picks up the wrong Ticker.h (esp8266?)

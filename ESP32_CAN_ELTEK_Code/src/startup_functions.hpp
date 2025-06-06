@@ -2,7 +2,7 @@
 #ifndef INCLUDES_H
 #include <includes.h>
 #endif
-//#define SCREENROTATE
+
 void setupDisplay(){
     hmi.initSerial(DGUS_SERIAL, DGUS_BAUD );
     hmi.hmiCallBack(onHMIEvent);  //set callback
