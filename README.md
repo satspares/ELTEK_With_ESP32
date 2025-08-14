@@ -1,4 +1,4 @@
-ELTEK Flatpack2 control using ESP32/c3 DWIN Display DMG48320C035_03WTC (480x320) and any DWIN 800x480 display.
+ELTEK Flatpack2 control using ESP32/c3 DWIN Display DMG48320C035_03WTC (480x320) or any DWIN TTL 800x480 display eg. DMG80480C043_01WTC.
 
 In the can-bus-kicad directory is a PCB design using ESP32c3 but you can use any ESP32 (5v supply needed) and a sn65hvd230 CAN Chip
 
