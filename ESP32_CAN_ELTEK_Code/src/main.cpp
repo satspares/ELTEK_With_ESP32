@@ -19,7 +19,7 @@
 
 
 void setup() {
-    // Setup serial for debuging.
+    // Setup serial for debugging USB port
     Serial.begin(115200);
   //Serial1.begin(115200, SERIAL_8N1,1,0); // serial1 if needed
   // uses pin 0 for current alarm at the moment
@@ -29,7 +29,7 @@ void setup() {
     readEEPROM();
     setupDisplay();   
    
-    pinMode(CAN_TX,OUTPUT);     // maynot be needed
+    pinMode(CAN_TX,OUTPUT);     // may not be needed
     pinMode(PINALARM,OUTPUT);
     digitalWrite(PINALARM,false);
 

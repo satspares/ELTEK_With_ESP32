@@ -4,6 +4,7 @@
 #endif
 
 void setupDisplay(){
+    // DWIN Display RX2/TX2
     hmi.initSerial(DGUS_SERIAL, DGUS_BAUD );
     hmi.hmiCallBack(onHMIEvent);  //set callback
     hmi.echoEnabled(false);       // dont want to see all the display transactions 

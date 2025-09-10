@@ -9,9 +9,9 @@ counter_display_msbool = false;
 
     if (display_status <=ELTEK_CURRENT_LIMITED){
         hmi.setVPWord(page0_Banner_Ico,display_status+20);
-    if (!in_menu){
-        hmi.setPage(MAINPAGE);
-    }
+        if (!in_menu){
+            hmi.setPage(MAINPAGE);
+        }
     }else if (display_status == ELTEK_ALARM){   // error
       hmi.setPage(ERRORPAGE);
       hmi.setText(Error1_Message,frame_array[0].alerts0);
@@ -24,5 +24,4 @@ hmi.setFloatValue(page0_Current,frame_array[0].current_output);
 hmi.setVPWord(page0_Power,frame_array[0].power_output);
 hmi.setVPWord(page0_Temp_In,frame_array[0].temp_inlet);
 hmi.setVPWord(page0_Temp_Out,frame_array[0].temp_outlet);
-
 }

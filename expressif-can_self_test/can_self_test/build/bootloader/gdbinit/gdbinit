@@ -1,0 +1,2 @@
+source /home/paul/SSD_Drive/can/can_self_test/build/bootloader/gdbinit/symbols
+source /home/paul/SSD_Drive/can/can_self_test/build/bootloader/gdbinit/connect

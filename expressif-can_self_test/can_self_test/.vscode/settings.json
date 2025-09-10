@@ -1,0 +1,11 @@
+{
+    "idf.flashType": "UART",
+    "idf.port": "/dev/ttyACM0",
+    "idf.customExtraVars": {
+        "IDF_TARGET": "esp32c3"
+    },
+    "idf.openOcdConfigs": [
+        "board/esp32c3-builtin.cfg"
+    ],
+    "idf.pythonInstallPath": "/usr/bin/python"
+}
