@@ -4,7 +4,7 @@
 
 /* ========= User Settings= ======== */
 
-// if you have a serial enter it below
+// if you have a serial enter it below ADVISABLE
 // please note it is a HEX number as per. example
 // if not we will work it out
 const bool USESERIALNO = false;
