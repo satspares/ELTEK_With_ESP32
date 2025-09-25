@@ -19,16 +19,18 @@ void sendLogin(uint32_t ID, uint8_t extd, uint8_t data[]){
 
 bool processFrame(uint32_t identifier){
   char serial_out[3];  
-
   if (((identifier & 0xffff0000)  == 0x05000000) && (!serialNumberRXed)){ // || (rxFrame.data[0] == 0x1b/5b)) ){
-            for (int i = 0; i < 6; ++i) {
+          frame_array[0].psuid_string = "";  
+          for (int i = 0; i < 6; ++i) {
 		        serialNumber[i] = rxFrame.data[i+1];
                 serialNumberRXed = true;
-                #ifdef myDebug
 		              snprintf(serial_out, 3, "%.2X", serialNumber[i]);
-		              Serial.print(serial_out);
-                #endif
+                  frame_array[0].psuid_string = frame_array[0].psuid_string + serial_out;
+                  #ifdef myDebug 
+                  Serial.print(serial_out);     
+                  #endif
 	        }
+
             delay(FRAME_DELAY);
             display_status = ELTEK_TRYING_LOGIN;
             clearFrameArrayDigits();

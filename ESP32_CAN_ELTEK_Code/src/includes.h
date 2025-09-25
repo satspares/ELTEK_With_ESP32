@@ -11,7 +11,7 @@ const bool USESERIALNO = false;
 const uint64_t PSUSERIAL = 0x183471016561;
 
 bool use_session_info = true;             // start last saved session if true else start with default voltage if false
-const uint8_t PSUID = 2;                  // Eltek ID no. we set 
+uint8_t PSUID = 2;                        // Eltek ID no. we set default 2
 const uint8_t LOGINTIME = 10;             // < (64*0.2)  time between logins set 5-10 seconds
 const uint8_t REBOOTMINS = 5;             // reboot time if no can messages 
 const uint8_t CURRENTLIMITSECSCHECK = 3;  // seconds to check for current limit;
@@ -37,6 +37,7 @@ const bool OLD_ELTEK = false;
 const uint8_t MAINPAGE = 0;
 const uint8_t SESSIONPAGE = 1;
 const uint8_t DEFAULTVOLTPAGE = 2;
+const uint8_t PSIDPAGE = 3;
 const uint8_t RESTARTPAGE = 8;
 const uint8_t CANCELSESSIONPAGE = 9;
 const uint8_t ERRORPAGE = 10;
@@ -71,6 +72,7 @@ const uint8_t SESSION_VOLT_LOCATION = 0;
 const uint8_t SESSION_VOLT_HIGH_LOCATION = 1;
 const uint8_t SESSION_CURRENT_LOCATION = 2;
 const uint8_t DEFAULT_VOLTAGE_LOCATION = 3;
+const uint8_t DEFAULT_PSUID_LOCATION = 4;
 const uint16_t BASE_VOLTAGE = 4350;  // 43.5*100 
 const uint16_t MAX_VOLTAGE = 5760; // 57.6*100
 const uint16_t MAX_CURRENT = 6250; // 62.5*100 or 33.6*100 48/2000 elteks /10 later
@@ -104,8 +106,8 @@ bool counter_display_msbool = false;
 bool in_menu = false; // we are in a menu item
 
 
-uint16_t sessionArray[] = {4950, 5760, 1600, 5000, 0xffff, 0xffff, 0xffff, 0xffff};
-//0 set_voltage - 1 max_voltage - 2 current_set - 3 default Voltage - spares..
+uint16_t sessionArray[] = {4950, 5760, 1600, 5000, 2, 0xffff, 0xffff, 0xffff};
+//0 set_voltage - 1 max_voltage - 2 current_set - 3 default Voltage - psuid - spares..
 
 // From https://github.com/xjamesmorris/fp_util/blob/main/fp_util.ino
 const char *alarms0Strings[] = { "OVS_LOCK_OUT", "MOD_FAIL_PRIMARY", "MOD_FAIL_SECONDARY",
@@ -126,6 +128,7 @@ const char *alarms1Strings[] = { "INTERNAL_VOLTAGE", "MODULE_FAIL", "MOD_FAIL_SE
     bool ramping_up;
     String alerts0;
     String alerts1;
+    String psuid_string;
   }frame_type;
   frame_type frame_array[4];  //4 for later
 
@@ -163,6 +166,7 @@ const uint16_t page1_Volt_Up_Down = 0x1011;
 const uint16_t page1_Current_Up_Down = 0x1012;
 const uint16_t page1_Unset = 0x1015;
 const uint16_t page1_Set = 0x1016;
+const uint16_t page1_psid = 0x1017;
 //Page 1 Display Controls
 const uint16_t Page1_Volt_DC_Display = 0x1140;
 const uint16_t Page1_Current_Display = 0x1145;
@@ -182,9 +186,20 @@ const uint16_t Page2_Up_Down_control = 0x1032;
 // Page 2 Display Controls
 const uint16_t Page2_Voltage_Display = 0x1150;
 
+/* ============= Page 3 ============ */
+// Page 3 touch controls
+const uint16_t Page3_Return = 0x1041;
+const uint16_t Page3_Set = 0x1042;
+const uint16_t Page3_Up_Down = 0x1043;
+// Page 3 Display Controls
+const uint16_t Page3_PSID_Display = 0x1044;
+uint16_t Page3_Serial_Display = 0x1250;
+
 /* ============= Page 8 ============ */
 // Page 8 Control
 const uint16_t Page8_Return = 0x1040;
+const uint16_t Page8_Return_SP = 0x5182;
+
 
 /* ============= Page 10 ============ */  // error message page
 uint16_t Error1_Message = 0x1201;

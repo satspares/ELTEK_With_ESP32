@@ -2,7 +2,7 @@
 PICFIX=1
 VARCount=64
 Version=0
-ProVersion=647
+ProVersion=648
 SCREENDSIZE=800X480
 SPADDRESS=5000
 [IMG]
@@ -13,3 +13,4 @@ SPADDRESS=5000
 9=9.bmp
 10=10.bmp
 11=11.bmp
+3=3.bmp

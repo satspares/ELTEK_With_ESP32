@@ -84,13 +84,21 @@ void onHMIEvent(String address, int lastByte, String message, String response)
     counter_login_secsbool = true;   // call for set
     hmi.beepHMI(BEEP_YES);
   }
+  else if(page1_psid == displayVP){
+    hmi.beepHMI(BEEP_YES);
+    in_menu = true;
+    hmi.setPage(PSIDPAGE);
+    hmi.setText(Page3_Serial_Display,"Serial: " + frame_array[0].psuid_string);
+    hmi.setVPWord(Page3_Up_Down,PSUID);
+    hmi.setVPWord(Page3_PSID_Display,PSUID);
+  }
   // Page 9 Control  
   else if (Page9_Return == displayVP){
     hmi.setPage(MAINPAGE);
     hmi.beepHMI(BEEP_YES);
     in_menu = false;
   }
-  // Page 10 Control;
+  // Page 10 Control
   else if(page10_Reboot == displayVP){
      clearFrameArrayDigits(); 
      hmi.setPage(MAINPAGE);
@@ -118,6 +126,18 @@ void onHMIEvent(String address, int lastByte, String message, String response)
   else if(Page8_Return == displayVP){
       in_menu = false;
       hmi.setPage(MAINPAGE);
+      hmi.beepHMI(BEEP_YES);
+   }
+   // Page 3
+   else if(Page3_Return == displayVP){
+    hmi.beepHMI(BEEP_YES);
+    in_menu = false;
+    sessionArray[DEFAULT_PSUID_LOCATION] = hmi.readVP(Page3_Up_Down);
+    PSUID = sessionArray[DEFAULT_PSUID_LOCATION];
+    eeprom_write_session_values();
+   }
+   else if(Page3_Up_Down == displayVP){
+      hmi.setVPWord(Page3_PSID_Display,hmi.readVP(Page3_Up_Down));
       hmi.beepHMI(BEEP_YES);
    }
 

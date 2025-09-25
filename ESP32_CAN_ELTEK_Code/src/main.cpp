@@ -28,7 +28,7 @@ void setup() {
     delay(500);
     readEEPROM();
     setupDisplay();   
-   
+    PSUID = sessionArray[DEFAULT_PSUID_LOCATION];
     pinMode(CAN_TX,OUTPUT);     // may not be needed
     pinMode(PINALARM,OUTPUT);
     digitalWrite(PINALARM,false);
@@ -52,11 +52,14 @@ void setup() {
 
     display_status = ELTEK_STARTING;
     clearFrameArrayDigits();   
-    if (USESERIALNO){     
+    if (USESERIALNO){ 
+     char serial_out[3];       
      uint8_t byteCount  = 40;     
         for (int i = 0;i < 6; ++i){
             serialNumber[i] = ((PSUSERIAL >> byteCount) & 0xFF);
-            byteCount -= 8;    
+            byteCount -= 8; 
+            snprintf(serial_out, 3, "%.2X", serialNumber[i]);
+            frame_array[0].psuid_string = frame_array[0].psuid_string + serial_out;   
         }   
         serialNumberRXed = true;
         tickerLoginSecs.attach(LOGINTIME,counterLoginsecs);
