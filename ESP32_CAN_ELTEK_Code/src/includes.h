@@ -13,9 +13,10 @@ const uint64_t PSUSERIAL = 0x183471016561;
 bool use_session_info = true;             // start last saved session if true else start with default voltage if false
 uint8_t PSUID = 2;                        // Eltek ID no. we set default 2
 const uint8_t LOGINTIME = 10;             // < (64*0.2)  time between logins set 5-10 seconds
-const uint8_t REBOOTMINS = 5;             // reboot time if no can messages 
+const uint8_t REBOOTMINS = 5;             // reboot time if no can messages
 const uint8_t CURRENTLIMITSECSCHECK = 3;  // seconds to check for current limit;
 const uint16_t FRAME_TIMEOUT_MS = 500;
+const uint16_t BLINK_TIME = 2000;         // LED Blink Time
 const uint16_t DISPLAY_REFRESH_TIME_MS = 500;
 const uint8_t DISPLAY_BRIGHTNESS = 25;   // range 1-100
 const bool LONG_WALKIN = false;          // false for 5 seconds true for 60 seconds
@@ -50,14 +51,16 @@ Ticker tickerLoginSecs;
 Ticker tickerReboot;
 Ticker tickerDisplayRefresh;
 Ticker tickerCheckCurrentLimit;
+Ticker tickerHouseKeeping;
 
 /* =============== Pins ============= */
 const uint8_t CAN_TX = 4;
-const uint8_t CAN_RX = 3; 
+const uint8_t CAN_RX = 3;
 // display tx/rx/pins
 const uint8_t PINRX = 20;
 const uint8_t PINTX = 21;
 const uint8_t PINALARM = 0;  // current alarm
+const uint8_t BLINKLED = 8;
 
 
 /* ============= other const ========== */
@@ -73,7 +76,7 @@ const uint8_t SESSION_VOLT_HIGH_LOCATION = 1;
 const uint8_t SESSION_CURRENT_LOCATION = 2;
 const uint8_t DEFAULT_VOLTAGE_LOCATION = 3;
 const uint8_t DEFAULT_PSUID_LOCATION = 4;
-const uint16_t BASE_VOLTAGE = 4350;  // 43.5*100 
+const uint16_t BASE_VOLTAGE = 4350;  // 43.5*100
 const uint16_t MAX_VOLTAGE = 5760; // 57.6*100
 const uint16_t MAX_CURRENT = 6250; // 62.5*100 or 33.6*100 48/2000 elteks /10 later
 const uint16_t OLD_ELTEK_DEFAULT_VOLTAGE = 5350;
@@ -102,35 +105,34 @@ bool wdtStopped = false;
 bool defaultVoltSent = false;
 bool serialNumberRXed = false;
 bool counter_login_secsbool  = false;
-bool counter_display_msbool = false; 
+bool counter_display_msbool = false;
 bool in_menu = false; // we are in a menu item
 
 
-uint16_t sessionArray[] = {4950, 5760, 1600, 5000, 2, 0xffff, 0xffff, 0xffff};
+uint16_t sessionArray[] = { 4950, 5760, 1600, 5000, 2, 0xffff, 0xffff, 0xffff };
 //0 set_voltage - 1 max_voltage - 2 current_set - 3 default Voltage - psuid - spares..
 
 // From https://github.com/xjamesmorris/fp_util/blob/main/fp_util.ino
 const char *alarms0Strings[] = { "OVS_LOCK_OUT", "MOD_FAIL_PRIMARY", "MOD_FAIL_SECONDARY",
-                                 "HIGH_AC_SUPPLY", "LOW_AC_SUPPLY", "HIGH_TEMP", "LOW_TEMP", "CURRENT_LIMIT" };
+    "HIGH_AC_SUPPLY", "LOW_AC_SUPPLY", "HIGH_TEMP", "LOW_TEMP", "CURRENT_LIMIT" };
 
 const char *alarms1Strings[] = { "INTERNAL_VOLTAGE", "MODULE_FAIL", "MOD_FAIL_SECONDARY",
-                                 "FAN1_SPEED_LOW", "FAN2_SPEED_LOW", "SUB_MOD1_FAIL", "FAN3_SPEED_LOW", "INNER_VOLT" };
+    "FAN1_SPEED_LOW", "FAN2_SPEED_LOW", "SUB_MOD1_FAIL", "FAN3_SPEED_LOW", "INNER_VOLT" };
 
-  typedef struct
-  {
+typedef struct {
     uint8_t temp_inlet;
     uint8_t temp_outlet;
     uint16_t voltage_input;
     float voltage_output;
     float current_output;
-    uint16_t power_output;  
-    bool current_limited;  
+    uint16_t power_output;
+    bool current_limited;
     bool ramping_up;
     String alerts0;
     String alerts1;
     String psuid_string;
-  }frame_type;
-  frame_type frame_array[4];  //4 for later
+}frame_type;
+frame_type frame_array[4];  //4 for later
 
 /* ============= DWIN Global =========== */
 #define DGUS_BAUD 115200
@@ -138,8 +140,8 @@ const char *alarms1Strings[] = { "INTERNAL_VOLTAGE", "MODULE_FAIL", "MOD_FAIL_SE
 DWIN hmi(DGUS_SERIAL, PINRX, PINTX, DGUS_BAUD);
 
 /* ============= DWIN Const ============ */
-const uint32_t LCDBackLightNormal = ((unsigned long)0x643A03E8); //Normal Brigtness 
-const uint32_t LCDBackLightLow = ((unsigned long)0x641503E8);    //0x641503E8)   
+const uint32_t LCDBackLightNormal = ((unsigned long)0x643A03E8); //Normal Brigtness
+const uint32_t LCDBackLightLow = ((unsigned long)0x641503E8);    //0x641503E8)
 const uint16_t LCDBackLightAddress = 0x0082;
 // Page 0 touch controls
 const uint16_t page0_right_arrow = 0x1000;
@@ -175,12 +177,12 @@ const uint16_t Page1_Current_Display_SP = 0x5300;
 
 /* ============= Page 9 ============ */
 // remove session warning
-// Page 9 touch control 
+// Page 9 touch control
 const uint16_t Page9_Return = 0x1020;
 
 /* ============= Page 2 ============ */  //set default voltage
 // Page 2 touch controls
-const uint16_t Page2_Return = 0x1030; 
+const uint16_t Page2_Return = 0x1030;
 const uint16_t Page2_Set_Default_Voltage = 0x1031;
 const uint16_t Page2_Up_Down_control = 0x1032;
 // Page 2 Display Controls
@@ -214,11 +216,11 @@ void counterLoginsecs();
 void counterBootMins();
 void counterDisplayRefresh();
 bool processFrame(uint32_t identifier);
-void setSession(uint32_t ID,uint16_t voltage, uint16_t hi_voltage, uint16_t current);
+void setSession(uint32_t ID, uint16_t voltage, uint16_t hi_voltage, uint16_t current);
 void saveFrame(uint8_t frameCopy[], bool current, bool ramping);
 void alertRequest(uint8_t alarmType);
 void setDefaultVoltage(uint16_t setVoltage);
-void readEEPROM();   
+void readEEPROM();
 void eeprom_write_session_values();
 void eeprom_read_session_values();
 void setupDisplay();
@@ -229,23 +231,20 @@ void setScreenRotate(byte angle);
 void clearFrameArrayDigits();
 void onHMIEvent(String address, int lastByte, String message, String response);
 void checkCurrentWarning();
+void keepingHouse();
 
-template <class T> int EEPROM_writeAnything(int ee, const T& value)
-{
-    const byte* p = (const byte*)(const void*)&value;
+template<class T> int EEPROM_writeAnything(int ee, const T &value) {
+    const byte *p = (const byte *)(const void *)&value;
     unsigned int i;
-    for (i = 0; i < sizeof(value); i++)
-          EEPROM.write(ee++, *p++);
-          EEPROM.commit();
-          delay(10);
+    for (i = 0; i < sizeof(value); i++) EEPROM.write(ee++, *p++);
+    EEPROM.commit();
+    delay(10);
     return i;
 }
-template <class T> int EEPROM_readAnything(int ee, T& value)
-{
-    byte* p = (byte*)(void*)&value;
+template<class T> int EEPROM_readAnything(int ee, T &value) {
+    byte *p = (byte *)(void *)&value;
     unsigned int i;
-    for (i = 0; i < sizeof(value); i++)
-          *p++ = EEPROM.read(ee++);
+    for (i = 0; i < sizeof(value); i++) *p++ = EEPROM.read(ee++);
     return i;
 }
 
