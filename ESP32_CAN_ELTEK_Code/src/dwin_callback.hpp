@@ -57,9 +57,11 @@ void onHMIEvent(String address, int lastByte, String message, String response) {
     else if (page1_Volt_Up_Down == displayVP) {
         voltSet = hmi.readVP(page1_Volt_Up_Down);
         hmi.setFloatValue(Page1_Volt_DC_Display, (voltSet / 100));
+        hmi.beepHMI(BEEP_TINY); // slows down key press
     } else if (page1_Current_Up_Down == displayVP) {
         currentSet = hmi.readVP(page1_Current_Up_Down);
         hmi.setFloatValue(Page1_Current_Display, (currentSet / 100));
+        hmi.beepHMI(BEEP_TINY);
     } else if (page1_Return == displayVP) {
         in_menu = false;
         hmi.beepHMI(BEEP_YES);
@@ -77,6 +79,7 @@ void onHMIEvent(String address, int lastByte, String message, String response) {
         in_menu = false;
         counter_login_secsbool = true;   // call for set
         hmi.beepHMI(BEEP_YES);
+
     } else if (page1_psid == displayVP) {
         hmi.beepHMI(BEEP_YES);
         in_menu = true;
@@ -106,6 +109,7 @@ void onHMIEvent(String address, int lastByte, String message, String response) {
     } else if (Page2_Up_Down_control == displayVP) {
         voltSet = hmi.readVP(Page2_Up_Down_control);
         hmi.setFloatValue(Page2_Voltage_Display, (voltSet / 100));
+        hmi.beepHMI(BEEP_TINY);
     } else if (Page2_Set_Default_Voltage == displayVP) {
         in_menu = true;
         default_voltage = hmi.readVP(Page2_Up_Down_control);
@@ -113,6 +117,7 @@ void onHMIEvent(String address, int lastByte, String message, String response) {
         defaultVoltSent = true;
         eeprom_write_session_values();
         hmi.beepHMI(BEEP_YES);
+        counter_login_secsbool = true;  // call for set now
     } else if (Page8_Return == displayVP) {
         in_menu = false;
         hmi.setPage(MAINPAGE);

@@ -1,5 +1,5 @@
 // define for debug print settings
-#define myDebug
+//#define myDebug
 //#define frameINFO
 //#define displayDebug
 //#define SCREENROTATE
@@ -23,7 +23,7 @@ void setup() {
     Serial.begin(115200);
     //Serial1.begin(115200, SERIAL_8N1,1,0); // serial1 if needed
     // uses pin 0 for current alarm at the moment
-    delay(5000);
+    delay(3000);
     Serial.println("Starting ");
     delay(500);
     readEEPROM();
@@ -51,24 +51,23 @@ void setup() {
     tickerReboot.attach(60, counterBootMins);
     tickerDisplayRefresh.attach_ms(DISPLAY_REFRESH_TIME_MS, counterDisplayRefresh);
     tickerCheckCurrentLimit.attach(CURRENTLIMITSECSCHECK, checkCurrentWarning);
-    tickerHouseKeeping.attach_ms(BLINK_TIME, keepingHouse);
+    tickerHouseKeeping.attach_ms(BLINK_TIME_MS, keepingHouse);
 
     display_status = ELTEK_STARTING;
     clearFrameArrayDigits();
     if (USESERIALNO) {
         char serial_out[3];
-        uint8_t byteCount  = 40;
         for (int i = 0; i < 6; ++i) {
-            serialNumber[i] = ((PSUSERIAL >> byteCount) & 0xFF);
-            byteCount -= 8;
-            snprintf(serial_out, 3, "%.2X", serialNumber[i]);
-            frame_array[0].psuid_string = frame_array[0].psuid_string + serial_out;
+        // Shift from MSB: 40, 32, 24, 16, 8, 0
+        int byteCount = 40 - (i * 8);
+        serialNumber[i] = (uint8_t)((PSUSERIAL >> byteCount) & 0xFF);
+        snprintf(serial_out, sizeof(serial_out), "%02X", serialNumber[i]);
+        frame_array[0].psuid_string += serial_out;
         }
         serialNumberRXed = true;
         tickerLoginSecs.attach(LOGINTIME, counterLoginsecs);
         // Try login now
         sendLogin(0x05004800 + (PSUID << 2), 1, serialNumber);
-
     }
 }
 

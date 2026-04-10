@@ -8,7 +8,7 @@
 // please note it is a HEX number as per. example
 // if not we will work it out
 const bool USESERIALNO = false;
-const uint64_t PSUSERIAL = 0x183471016561;
+const uint64_t PSUSERIAL = 0x121971129114;
 
 bool use_session_info = true;             // start last saved session if true else start with default voltage if false
 uint8_t PSUID = 2;                        // Eltek ID no. we set default 2
@@ -16,10 +16,12 @@ const uint8_t LOGINTIME = 10;             // < (64*0.2)  time between logins set
 const uint8_t REBOOTMINS = 5;             // reboot time if no can messages
 const uint8_t CURRENTLIMITSECSCHECK = 3;  // seconds to check for current limit;
 const uint16_t FRAME_TIMEOUT_MS = 500;
-const uint16_t BLINK_TIME = 2000;         // LED Blink Time
+const uint16_t BLINK_TIME_MS = 2000;         // LED Blink Time
 const uint16_t DISPLAY_REFRESH_TIME_MS = 500;
 const uint8_t DISPLAY_BRIGHTNESS = 25;   // range 1-100
 const bool LONG_WALKIN = false;          // false for 5 seconds true for 60 seconds
+
+
 const bool OLD_ELTEK = false;
 // ELTEK before HE version? I have a v1.5 most functions work
 // Not possible to set default voltage?
@@ -28,10 +30,10 @@ const bool OLD_ELTEK = false;
 // session voltage/current is active all the time.
 // Also no current display limit warning
 
-
 // user beep settings in milli seconds
 #define BEEP_CURRENT_ALARM 65
 #define BEEP_YES 50
+#define BEEP_TINY 20
 #define BEEP_CANCEL 300
 #define BEEP_ERROR 700
 /* ========= Page Numbers ========== */
@@ -130,7 +132,7 @@ typedef struct {
     bool ramping_up;
     String alerts0;
     String alerts1;
-    String psuid_string;
+    String psuid_string;  // FP2 Serial
 }frame_type;
 frame_type frame_array[4];  //4 for later
 
@@ -231,6 +233,7 @@ void setScreenRotate(byte angle);
 void clearFrameArrayDigits();
 void onHMIEvent(String address, int lastByte, String message, String response);
 void checkCurrentWarning();
+static inline uint16_t bytes_to_u16(uint8_t hi, uint8_t lo);
 void keepingHouse();
 
 template<class T> int EEPROM_writeAnything(int ee, const T &value) {

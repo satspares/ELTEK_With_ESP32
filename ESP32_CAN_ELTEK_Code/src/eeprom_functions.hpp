@@ -29,12 +29,12 @@ void readEEPROM() {
         sessionArray[SESSION_CURRENT_LOCATION] = constrain(sessionArray[SESSION_CURRENT_LOCATION], 10, MAX_CURRENT);
         sessionArray[DEFAULT_PSUID_LOCATION] = constrain(sessionArray[DEFAULT_PSUID_LOCATION], 1, 63);
 
-
+#ifdef myDebug
         for (int j = 0; j < (sizeof(sessionArray) / sizeof(uint16_t)); j++) {
             Serial.print(sessionArray[j]);
             Serial.print(" ");
         }
-
+#endif
 
     }
 
