@@ -1,7 +1,7 @@
 // define for debug print settings
 //#define myDebug
 //#define frameINFO
-//#define displayDebug
+// #define displayDebug
 //#define SCREENROTATE
 #include <Arduino.h>
 #include <ESP32-TWAI-CAN.hpp>
