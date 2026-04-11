@@ -16,7 +16,7 @@ const uint8_t LOGINTIME = 10;             // < (64*0.2)  time between logins set
 const uint8_t REBOOTMINS = 5;             // reboot time if no can messages
 const uint8_t CURRENTLIMITSECSCHECK = 3;  // seconds to check for current limit;
 const uint16_t FRAME_TIMEOUT_MS = 500;
-const uint16_t BLINK_TIME_MS = 2000;         // LED Blink Time
+const uint16_t BLINK_TIME_MS = 2000;      // Blue LED onboard esp32 Blink Time
 const uint16_t DISPLAY_REFRESH_TIME_MS = 500;
 const uint8_t DISPLAY_BRIGHTNESS = 25;   // range 1-100
 const bool LONG_WALKIN = false;          // false for 5 seconds true for 60 seconds
@@ -145,6 +145,16 @@ DWIN hmi(DGUS_SERIAL, PINRX, PINTX, DGUS_BAUD);
 const uint32_t LCDBackLightNormal = ((unsigned long)0x643A03E8); //Normal Brigtness
 const uint32_t LCDBackLightLow = ((unsigned long)0x641503E8);    //0x641503E8)
 const uint16_t LCDBackLightAddress = 0x0082;
+     
+    //page 0 start page
+    //page 1 set volts and current
+    //page 2 set default volts
+    //page 3 set power supply id PSUID
+    //page 8 restart page
+    //page 9 please unset session
+    //page 10 alarms
+    //page 11 default volts not avaiable for old elteks 
+
 // Page 0 touch controls
 const uint16_t page0_right_arrow = 0x1000;
 const uint16_t page0_left_arrow = 0x1001;
@@ -172,43 +182,43 @@ const uint16_t page1_Unset = 0x1015;
 const uint16_t page1_Set = 0x1016;
 const uint16_t page1_psid = 0x1017;
 //Page 1 Display Controls
-const uint16_t Page1_Volt_DC_Display = 0x1140;
-const uint16_t Page1_Current_Display = 0x1145;
-const uint16_t Page1_Volt_DC_Display_SP = 0x5250;
-const uint16_t Page1_Current_Display_SP = 0x5300;
+const uint16_t page1_Volt_DC_Display = 0x1140;
+const uint16_t page1_Current_Display = 0x1145;
+const uint16_t page1_Volt_DC_Display_SP = 0x5250;
+const uint16_t page1_Current_Display_SP = 0x5300;
 
 /* ============= Page 9 ============ */
 // remove session warning
 // Page 9 touch control
-const uint16_t Page9_Return = 0x1020;
+const uint16_t page9_Return = 0x1020;
 
 /* ============= Page 2 ============ */  //set default voltage
 // Page 2 touch controls
-const uint16_t Page2_Return = 0x1030;
-const uint16_t Page2_Set_Default_Voltage = 0x1031;
-const uint16_t Page2_Up_Down_control = 0x1032;
+const uint16_t page2_Return = 0x1030;
+const uint16_t page2_Set_Default_Voltage = 0x1031;
+const uint16_t page2_Up_Down_control = 0x1032;
 // Page 2 Display Controls
-const uint16_t Page2_Voltage_Display = 0x1150;
+const uint16_t page2_Voltage_Display = 0x1150;
 
 /* ============= Page 3 ============ */
 // Page 3 touch controls
-const uint16_t Page3_Return = 0x1041;
-const uint16_t Page3_Set = 0x1042;
-const uint16_t Page3_Up_Down = 0x1043;
+const uint16_t page3_Return = 0x1041;
+const uint16_t page3_Set = 0x1042;
+const uint16_t page3_Up_Down = 0x1043;
 // Page 3 Display Controls
-const uint16_t Page3_PSID_Display = 0x1044;
-uint16_t Page3_Serial_Display = 0x1250;
+const uint16_t page3_PSID_Display = 0x1044;
+const uint16_t page3_Serial_Display = 0x1250;
 
 /* ============= Page 8 ============ */
 // Page 8 Control
-const uint16_t Page8_Return = 0x1040;
-const uint16_t Page8_Return_SP = 0x5182;
+const uint16_t page8_Return = 0x1040;
+const uint16_t page8_Return_SP = 0x5182;
 
 
 /* ============= Page 10 ============ */  // error message page
-uint16_t Error1_Message = 0x1201;
-uint16_t Error2_Message = 0x1230;
-uint16_t page10_Reboot = 0x1160;
+const uint16_t Error1_Message = 0x1201;
+const uint16_t Error2_Message = 0x1230;
+const uint16_t page10_Reboot = 0x1160;
 
 
 /* ======= function forward references ======== */
