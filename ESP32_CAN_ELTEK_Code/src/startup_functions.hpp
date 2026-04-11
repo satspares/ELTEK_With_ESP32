@@ -19,7 +19,17 @@ void setupDisplay() {
     hmi.setPage(MAINPAGE);
     hmi.setBrightness(DISPLAY_BRIGHTNESS);
     hmi.setTPBeep(false); // turn off dwin touch beep use ours
+    hmi.returnWord(false); // return byte normal behavior returned in onHMIEvent (int)lastByte 
+
+    #ifdef displayDebug
+    Serial.print("DWIN SoftVersion " );
+    Serial.println(hmi.getGUISoftVersion());
+    Serial.print("DWIN Hardware Version " );
+    Serial.println(hmi.getHWVersion());
+    #endif
 }
+
+
 
 #ifdef SCREENROTATE
 //rotate the screen  eg. setScreenRotate(rotate270); // flip the screen

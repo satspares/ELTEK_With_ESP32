@@ -8,7 +8,8 @@
 void onHMIEvent(String address, int lastByte, String message, String response) {  // start tag onHMIEvent
 #ifdef displayDebug
     Serial.println("OnEvent : [ A : " + address + " | D : " + String(lastByte, HEX) + " | M : " + message + " | R : " + response + " ]");
-#endif
+    #endif
+
 
 
     char* endPtr;
