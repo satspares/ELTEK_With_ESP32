@@ -17,7 +17,6 @@
 #include <dwin_callback.hpp>
 #include <display_update.hpp>
 
-
 void setup() {
     // Setup serial for debugging USB port
     Serial.begin(115200);
@@ -69,6 +68,7 @@ void setup() {
         // Try login now
         sendLogin(0x05004800 + (PSUID << 2), 1, serialNumber);
     }
+    
 }
 
 void loop() {
