@@ -17,7 +17,7 @@ const uint8_t REBOOTMINS = 5;             // reboot time if no can messages
 const uint8_t CURRENTLIMITSECSCHECK = 3;  // seconds to check for current limit;
 const uint16_t FRAME_TIMEOUT_MS = 500;
 const uint16_t BLINK_TIME_MS = 2000;      // Blue LED onboard esp32 Blink Time
-const uint16_t DISPLAY_REFRESH_TIME_MS = 500;
+const uint16_t DISPLAY_REFRESH_TIME_MS = 600;
 const uint8_t DISPLAY_BRIGHTNESS = 25;   // range 1-100
 const bool LONG_WALKIN = false;          // false for 5 seconds true for 60 seconds
 
@@ -93,7 +93,7 @@ const uint8_t ELTEK_WALKIN = 0x04;
 const uint8_t ELTEK_CURRENT_LIMITED = 0x05;
 const uint8_t ELTEK_ALERT_INFO = 0x06;
 const uint8_t ELTEK_ALARM = 0x07;
-
+const uint8_t ICON_BASE = 20;   // the first icon number eg. 20.jpg
 
 /* ============= Global Vars ========== */
 
@@ -106,7 +106,7 @@ uint8_t display_status = 0;
 bool wdtStopped = false;
 bool defaultVoltSent = false;
 bool serialNumberRXed = false;
-bool counter_login_secsbool  = false;
+bool counter_login_reset  = false;
 bool counter_display_msbool = false;
 bool in_menu = false; // we are in a menu item
 

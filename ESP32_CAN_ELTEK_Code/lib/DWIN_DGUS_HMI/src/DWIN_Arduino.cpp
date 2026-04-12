@@ -13,6 +13,7 @@
 #define CMD_READ_TIMEOUT 50
 #define READ_TIMEOUT 100 
 #define SERIAL_DELAY 5
+#define CMD_IDLE_TIMEOUT 10
 
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) || defined(FORCEHWSERIAL)
 DWIN::DWIN(HardwareSerial &port, long baud)
@@ -90,8 +91,16 @@ void DWIN::ackDisabled(bool noACK)
     _noACK = noACK;
 }
 
-// Get Hardware Firmware Version of DWIN HMI
-double DWIN::getHWVersion()
+byte DWIN::getOSSoftVersion()
+{ //  HEX(5A A5 04 83 00 0F 01)
+    byte sendBuffer[] = {CMD_HEAD1, CMD_HEAD2, 0x04, CMD_READ, 0x00, 0x0F, 0x01};
+    _dwinSerial->write(sendBuffer, sizeof(sendBuffer));
+    delay(10);
+    return readCMDLastByte();
+}
+// this one is incorrect reads OS Software version
+// needs to be removed
+byte DWIN::getHWVersion()
 { //  HEX(5A A5 04 83 00 0F 01)
     byte sendBuffer[] = {CMD_HEAD1, CMD_HEAD2, 0x04, CMD_READ, 0x00, 0x0F, 0x01};
     _dwinSerial->write(sendBuffer, sizeof(sendBuffer));
@@ -99,7 +108,7 @@ double DWIN::getHWVersion()
     return readCMDLastByte();
 }
 
-double DWIN::getGUISoftVersion()
+byte DWIN::getGUISoftVersion()
 { //  HEX(5A A5 04 83 00 0F 01)
     byte sendBuffer[] = {CMD_HEAD1, CMD_HEAD2, 0x04, CMD_READ, 0x00, 0x0F, 0x01};
     _dwinSerial->write(sendBuffer, sizeof(sendBuffer));
@@ -215,7 +224,7 @@ void DWIN::setVP(long address, byte data)
     byte sendBuffer[] = {CMD_HEAD1, CMD_HEAD2, 0x05, CMD_WRITE, (uint8_t)((address >> 8) & 0xFF), 
         (uint8_t)((address)&0xFF), 0x00, data};
     _dwinSerial->write(sendBuffer, sizeof(sendBuffer));
-    readDWIN();
+     readDWIN();
 }
 
 // Set WordData on VP Address
@@ -300,7 +309,7 @@ void DWIN::beepHMI(uint16_t beep_time) {
   // 0x5A, 0xA5, 0x05, 0x82, 0x00, 0xA0, 0x00, {Low Byte} - Variable timing up to 2000ms
   byte sendBuffer[] = { CMD_HEAD1, CMD_HEAD2, 0x05, CMD_WRITE, 0x00, 0xA0, 0x00, lx };
   _dwinSerial->write(sendBuffer, sizeof(sendBuffer));
-  readDWIN();
+   readDWIN();
 }
 
 
@@ -353,7 +362,7 @@ void DWIN::sendArray(byte dwinSendArray[],byte arraySize)
     //look for the ack. on write 
     if (dwinSendArray[0] == CMD_WRITE) 
     {  
-     readDWIN();
+        readDWIN();
     }
 }
 
@@ -377,7 +386,7 @@ void DWIN::sendIntArray(uint16_t instruction,uint16_t dwinIntArray[],byte arrayS
           
     //look for the ack. on write
     if ((uint8_t)((instruction)&0xFF) == CMD_WRITE) { // or some others?
-        readDWIN();
+       readDWIN();
     }
 
 }
@@ -493,7 +502,7 @@ String DWIN::handle()
             int inByte = _dwinSerial->read();
             response.concat(checkHex(inByte) + " ");
 
-            // Bytes 2–3 form the variable address
+            // Bytes 2–3 form the dwin variable address
             if (i == 2 || i == 3)
             {
                 address.concat(checkHex(inByte));
@@ -558,28 +567,36 @@ byte DWIN::readCMDLastByte(bool hiByte)
         ((SoftwareSerial *)_dwinSerial)->listen(); // Start software serial listen
     }
 #endif
-
     byte lastByte = -1;
     byte previousByte = -1;
-    unsigned long startTime = millis(); // Start time for Timeout
-    while ((millis() - startTime < CMD_READ_TIMEOUT))
+    unsigned long startTime  = millis();
+    unsigned long lastRxTime = millis(); // Track last received byte time
+
+    while ((millis() - startTime) < CMD_READ_TIMEOUT)
     {
-        while (_dwinSerial->available() > 0)
+        if (_dwinSerial->available() > 0)
         {
             previousByte = lastByte;
-            lastByte = _dwinSerial->read();
+            lastByte     = _dwinSerial->read();
+            lastRxTime   = millis();
+        }
+        else if (lastByte != -1 && (millis() - lastRxTime) > CMD_IDLE_TIMEOUT)
+        {
+            break; // Data arrived and bus has been idle — done early   
         }
     }
-    if (hiByte){
-      return previousByte;
-    }else{
-      return lastByte;  
-    }
-   
+  
+    if (hiByte)
+        return (byte)previousByte;
+    else
+        return (byte)lastByte;
 }
 
+
+/*
 void DWIN::flushSerial()
 {
     Serial.flush();
     _dwinSerial->flush();
 }
+*/

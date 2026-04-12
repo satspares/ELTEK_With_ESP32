@@ -78,9 +78,10 @@ public:
     // Listen Touch Events & Messages from HMI
     void listen();
     // Get Version
-    double getHWVersion();
+    byte getOSSoftVersion();
+    byte getHWVersion(); // naming incorrect
     //get GUI software version
-    double getGUISoftVersion();
+    byte getGUISoftVersion();
     // restart HMI
     void restartHMI();
     // set Particular Page
@@ -171,11 +172,11 @@ private:
     bool _isSoft;          // Is serial interface software
     long _baud;            // DWIN HMI Baud rate
     bool _echo = false;    // Response Command Show
-    bool _isConnected;     // Flag set on successful communication
+  //  bool _isConnected;     // Flag set on successful communication
     bool _noACK = false;   // No ack used with no response kernel 
     bool _retWord = false; // return word from rx event when true 
 
-    bool cbfunc_valid;
+  //  bool cbfunc_valid;
     hmiListener listenerCallback;
 
     void init(Stream* port, bool isSoft); 
@@ -183,7 +184,7 @@ private:
     String readDWIN();
     String handle();
     String checkHex(byte currentNo);
-    void flushSerial();
+    //void flushSerial();
 
 };
 

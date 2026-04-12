@@ -8,10 +8,8 @@ void update_display(){
 counter_display_msbool = false;
 
     if (display_status <=ELTEK_CURRENT_LIMITED){
-        hmi.setVPWord(page0_Banner_Ico,display_status+20);
-        if (!in_menu){
-            hmi.setPage(MAINPAGE);
-        }
+        // 20 is the base icon number
+        hmi.setVPWord(page0_Banner_Ico,display_status+ICON_BASE);
     }else if (display_status == ELTEK_ALARM){   // error
       hmi.setPage(ERRORPAGE);
       hmi.setText(Error1_Message,frame_array[0].alerts0);

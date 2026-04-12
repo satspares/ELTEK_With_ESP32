@@ -8,7 +8,7 @@ void setupDisplay() {
     // we are Serial0
     hmi.initSerial(DGUS_SERIAL, DGUS_BAUD);
     hmi.hmiCallBack(onHMIEvent);  //set callback
-    hmi.echoEnabled(true);       //dont want to see all the display transactions
+    hmi.echoEnabled(false);       //dont want to see all the display transactions
     hmi.ackDisabled(true);        //for our no ack kernel
 #ifdef SCREENROTATE
     /* ======= Screen rotate should be set in .cfg config file ======== */
@@ -23,10 +23,10 @@ void setupDisplay() {
     hmi.returnWord(false); // return byte normal behavior returned in onHMIEvent (int)lastByte 
 
     #ifdef displayDebug
-    Serial.print("DWIN SoftVersion " );
-    Serial.println(hmi.getGUISoftVersion());
-    Serial.print("DWIN Hardware Version " );
-    Serial.println(hmi.getHWVersion());
+    Serial.print("DWIN GUI SoftVersion v" );
+    Serial.println(hmi.getGUISoftVersion(),HEX);
+    Serial.print("DWIN OS SoftVersion Version v" );
+    Serial.println(hmi.getOSSoftVersion(),HEX);
     #endif
 }
 

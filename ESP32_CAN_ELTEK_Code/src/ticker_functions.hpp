@@ -5,7 +5,7 @@
 
 // ticker login timeout
 void counterLoginsecs() {
-    counter_login_secsbool = true;
+    counter_login_reset = true;
 }
 
 // ticker every 1 minute

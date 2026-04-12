@@ -117,7 +117,7 @@ void loop() {
     }  // end if (ESP32Can.readFrame
 
     // after ticker timeout
-    if (counter_login_secsbool) {
+    if (counter_login_reset) {
         // Old Eltek fake the default voltage
         if (OLD_ELTEK && !use_session_info) {
             setSession(0x05FF4004, sessionArray[DEFAULT_VOLTAGE_LOCATION], MAX_VOLTAGE, MAX_CURRENT);
@@ -142,8 +142,8 @@ void loop() {
                 hmi.setPage(RESTARTPAGE);
             }
         }
-        counter_login_secsbool = false;
-    }  // END counter_login_secsbool
+        counter_login_reset = false;
+    }  // END counter_login_reset
 
     if (counter_display_msbool) {
         update_display();

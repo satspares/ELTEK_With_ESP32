@@ -10,8 +10,6 @@ void onHMIEvent(String address, int lastByte, String message, String response) {
     Serial.println("OnEvent : [ A : " + address + " | D : " + String(lastByte, HEX) + " | M : " + message + " | R : " + response + " ]");
     #endif
 
-
-
     char* endPtr;
     uint16_t displayVP = (uint16_t)strtol(address.c_str(), &endPtr, 16);
     if (*endPtr != '\0') {
@@ -104,7 +102,8 @@ switch(displayVP) {
         in_menu = false;
         hmi.beepHMI(BEEP_YES);
         use_session_info = false;
-        counter_login_secsbool = true;
+        counter_login_reset = true;
+        hmi.setPage(MAINPAGE);
     }
     break;
 
@@ -117,8 +116,9 @@ switch(displayVP) {
 
         eeprom_write_session_values();
         in_menu = false;
-        counter_login_secsbool = true;   // call for set
+        counter_login_reset = true;   // call for set
         hmi.beepHMI(BEEP_YES);    
+        hmi.setPage(MAINPAGE);
     }
     break;
 
@@ -168,7 +168,7 @@ switch(displayVP) {
         defaultVoltSent = true;
         eeprom_write_session_values();
         hmi.beepHMI(BEEP_YES);
-        counter_login_secsbool = true;  // call for set now
+        counter_login_reset = true;  // call for set now
     }
     break;
 
@@ -186,6 +186,7 @@ switch(displayVP) {
         PSUID = sessionArray[DEFAULT_PSUID_LOCATION];
         hmi.beepHMI(BEEP_YES);
         eeprom_write_session_values();
+        hmi.setPage(MAINPAGE);
     }
     break;
 
