@@ -21,7 +21,7 @@ void counterBootMins() {
 }
 
 void counterDisplayRefresh() {
-    counter_display_msbool = true;
+    counter_display_timeout = true;
 }
 
 void checkCurrentWarning() {
@@ -38,7 +38,9 @@ void checkCurrentWarning() {
 void keepingHouse() {
     // runs continuous every 2000ms
     static bool toggle;
+    #ifdef NOTUSEI2C
     digitalWrite(BLINKLED, toggle);
+    #endif
     toggle = !toggle;
 
 }

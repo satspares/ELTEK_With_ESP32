@@ -5,7 +5,7 @@
 
 
 void update_display(){
-counter_display_msbool = false;
+counter_display_timeout = false;
 
     if (display_status <=ELTEK_CURRENT_LIMITED){
         // 20 is the base icon number

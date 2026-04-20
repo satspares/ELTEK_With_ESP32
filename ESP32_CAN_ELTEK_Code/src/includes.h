@@ -61,8 +61,10 @@ const uint8_t CAN_RX = 3;
 // display tx/rx/pins
 const uint8_t PINRX = 20;
 const uint8_t PINTX = 21;
-const uint8_t PINALARM = 0;  // current alarm
+const uint8_t PINALARM = 0;  // current alarm if not using Serial1
+#ifdef NOTUSEI2C
 const uint8_t BLINKLED = 8;
+#endif
 
 
 /* ============= other const ========== */
@@ -107,7 +109,7 @@ bool wdtStopped = false;
 bool defaultVoltSent = false;
 bool serialNumberRXed = false;
 bool counter_login_reset  = false;
-bool counter_display_msbool = false;
+bool counter_display_timeout = false;
 bool in_menu = false; // we are in a menu item
 
 

@@ -3,6 +3,8 @@
 //#define frameINFO
 //#define displayDebug
 //#define SCREENROTATE
+
+#define NOTUSEI2C  // turn off onboard lED when using i2c
 #include <Arduino.h>
 #include <ESP32-TWAI-CAN.hpp>
 #include <myTicker.h> // clone Ticker.h as it picks up the wrong Ticker.h (esp8266?)
@@ -30,7 +32,9 @@ void setup() {
     PSUID = sessionArray[DEFAULT_PSUID_LOCATION];
     pinMode(CAN_TX, OUTPUT);     // may not be needed
     pinMode(PINALARM, OUTPUT);
+    #ifdef NOTUSEI2C
     pinMode(BLINKLED, OUTPUT);   //   blinkLED
+    #endif
     digitalWrite(PINALARM, false);
 
     if (ESP32Can.begin(TWAI_SPEED_125KBPS, CAN_TX, CAN_RX, 10, 10)) {
@@ -145,7 +149,7 @@ void loop() {
         counter_login_reset = false;
     }  // END counter_login_reset
 
-    if (counter_display_msbool) {
+    if (counter_display_timeout) {
         update_display();
     }
 
